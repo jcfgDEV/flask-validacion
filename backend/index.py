@@ -3,13 +3,12 @@ from pymongo import MongoClient
 from flask_cors import CORS
 import datetime
 import os
-from dotenv import load_dotenv
+
 app = Flask(__name__)
 CORS(app)
-# Carga las variables de entorno desde el archivo .env
-load_dotenv()
 
-mongo_uri = os.environ.get('MONGO_URI')
+
+mongo_uri = os.environ.get('MONGO_URL')
 client = MongoClient(mongo_uri)
 db = client.test
 
@@ -34,13 +33,13 @@ def Agregar():
     if existing_name:
         errors['Nombre'].append('Ya se encuentra ese nombre')
     
-    if not Dato.get('Nombre'):
+    if not Dato['Nombre']:
         errors['Nombre'].append('Este campo es requerido')
 
-    if not Dato.get('Season'):
+    if not Dato['Season']:
         errors['Season'].append('Este campo es requerido')
 
-    if not Dato.get('Date'):
+    if not Dato['Date']:
        errors['Date'].append('Este campo es requerido')
     else:
         try:
@@ -48,16 +47,16 @@ def Agregar():
         except ValueError:
             errors['Date'].append('Formato de fecha incorrecto, debe ser AAAA-MM-DD')
 
-    if not Dato.get('Number'):
+    if not Dato['Number']:
         errors['Number'].append('Este campo es requerido')
     elif not Dato['Number'].isdigit():
         errors['Number'].append('Este campo solo debe contener números')
 
-    if len(Dato.get('Nombre', '')) > 15:
+    if len(Dato['Nombre']) > 15:
         errors['Nombre'].append('El campo Nombre no puede tener más de 15 caracteres')
 
     season_options = ["primavera", "verano", "otoño", "invierno"]
-    if not Dato.get('Season') or Dato['Season'].lower() not in season_options:
+    if not Dato['Season'] or Dato['Season'].lower() not in season_options:
         errors['Season'].append('Debe Ingresar: ' + ', '.join(season_options))
 
     if any(errors.values()):
