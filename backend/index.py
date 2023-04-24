@@ -1,14 +1,16 @@
 from flask import Flask,request,jsonify
 from pymongo import MongoClient
 from flask_cors import CORS
-import re
 import datetime
-from dateutil.parser import parse
+import os
+from dotenv import load_dotenv
 app = Flask(__name__)
 CORS(app)
+# Carga las variables de entorno desde el archivo .env
+load_dotenv()
 
-
-client = MongoClient('mongodb+srv://ObscureBM:WfhEnDVw90w8FVSU@cluster0.imwio.mongodb.net/?retryWrites=true&w=majority')
+mongo_uri = os.environ.get('MONGO_URI')
+client = MongoClient(mongo_uri)
 db = client.test
 
 
@@ -19,60 +21,6 @@ def Home():
         "Status": "200",
     }
     return response
-
-
-# @app.route('/add', methods=['POST'])
-# def Agregar():
-#     Dato = request.json['Datos']
-#     errors = {'Nombre': [], 'Season': [], 'Date': [], 'Number': []}
-#     existing_name = db.python.find_one({'Nombre': Dato['Nombre']})
-#     # FORMATO DE LA FECHA
-#     date_format = '%Y-%m-%d'
-
-#     if existing_name:
-#         errors['Nombre'].append('Ya se encuentra ese nombre')
-    
-#     if not Dato['Nombre']:
-#         errors['Nombre'].append('Este campo es requerido')
-
-#     if not Dato['Season']:
-#         errors['Season'].append('Este campo es requerido')
-
-#     if not Dato['Date']:
-#        errors['Date'].append('Este campo es requerido')
-
-#     if not Dato['Number']:
-#         errors['Number'].append('Este campo es requerido')
-
-#     if len(Dato['Nombre']) > 15:
-#         errors['Nombre'].append('El campo Nombre no puede tener más de 15 caracteres')
-
-#     if not Dato['Number'].isdigit():
-#         errors['Number'].append('Este Campo solo debe contener Numeros')
-
-
-#         try:
-#             datetime.datetime.strptime(Dato['Date'], date_format)
-#             # si la fecha da errado en el formato lanzara una exepcion
-#         except ValueError:
-#             # printing the appropriate text if ValueError occurs
-#             errors['Date'].append('Formato de fecha incorrecto, debe ser AAAA-MM-DD')
-#         finally:
-#             return
-
-#     if Dato['Season'].lower() not in ["primavera", "verano", "otoño", "invierno"]:
-#         errors['Season'].append('Ingrese solo las Estaciones de la epoca')
-#     return jsonify({'errors': errors}), 400
-
-
-#     inserted_record = db.python.insert_one({
-#         'Nombre': Dato['Nombre'], 
-#         'Season': Dato['Season'], 
-#         'Date': Dato['Date'], 
-#         'Number': Dato['Number'],  
-#     })
-
-#     return jsonify({'id': str(inserted_record.inserted_id)}),200
 
 
 @app.route('/add', methods=['POST'])
