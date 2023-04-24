@@ -35,6 +35,7 @@ export default function Page() {
         });
     };
 
+    
 
 
     const handler = async (e) => {
@@ -49,11 +50,11 @@ export default function Page() {
             }),
         });
         const response = await res.json();
-        if (res.status === 400) {
+        if (res.status == 400) {
             setErrors(response.errors)
         } else {
             toast.success(response.id, {
-                position: "top-right",
+                position: "top-left",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -108,7 +109,7 @@ export default function Page() {
                             id="fecha"
                             name="Date"
                             type="text"
-                            placeholder="AAAA/MM/DD"
+                            placeholder="AAAA-MM-DD"
                             onChange={Change}
                             value={Datos.Date}
                         />
@@ -138,7 +139,7 @@ export default function Page() {
                             Estaciones
                         </label>
                         <input
-                            className={`border ${Errors.Season.length >= 1 ? 'border-red-500' : ''} ${Errors.length === 0 ? 'border-green-500' : ''} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none`}
+                            className={`border ${Errors.Season.length > 0 ? 'border-red-500' : ''} ${Errors.length === 0 ? 'border-green-500' : ''} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none`}
                             id="estaciones"
                             name="Season"
                             type="text"
@@ -152,7 +153,6 @@ export default function Page() {
                     </div>
                 </div>
             </form>
-
         </>
     )
 }
