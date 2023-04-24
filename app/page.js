@@ -1,6 +1,10 @@
 'use client'
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { ImWarning } from 'react-icons/im';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 export default function Page() {
 
     const [Datos, setDatos] = useState({
@@ -8,7 +12,7 @@ export default function Page() {
         Season: '',
         Date: '',
         Number: '',
-        
+
     })
 
     const [Errors, setErrors] = useState({
@@ -48,6 +52,16 @@ export default function Page() {
         if (res.status === 400) {
             setErrors(response.errors)
         } else {
+            toast.success(response.id, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
             setDatos({
                 Nombre: '',
                 Season: '',
@@ -57,11 +71,12 @@ export default function Page() {
         }
     }
 
- 
+
 
 
     return (
         <>
+            <ToastContainer />
             <form onSubmit={handler} className="flex justify-center">
                 <div className=" translate-y-20 w-[400px]">
                     <div className="mb-1">
