@@ -26,7 +26,7 @@ def Home():
 
 @app.route('/add', methods=['POST'])
 def Agregar():
-    Data = request.json['Datos']
+    Data = request.json["Enviar"]
     errors = {'Nombre': [], 'Season': [], 'Date': [], 'Number': []}
     existing_name = db.python.find_one({'Nombre': Data['Nombre']})
     # FORMATO DE LA FECHA

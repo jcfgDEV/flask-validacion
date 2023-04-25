@@ -7,12 +7,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function Page() {
 
-    const [Datos, setDatos] = useState({
+    const [Enviar, setInfo] = useState({
         Nombre: '',
         Season: '',
         Date: '',
         Number: '',
-
     })
 
     const [Errors, setErrors] = useState({
@@ -24,7 +23,7 @@ export default function Page() {
 
     const Change = (e) => {
         const { name, value } = e.target;
-        setDatos(prevState => ({
+        setInfo(prevState => ({
             ...prevState,
             [name]: value
         }));
@@ -45,7 +44,7 @@ export default function Page() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                Datos
+                Enviar
             }),
         });
         const response = await res.json();
@@ -61,7 +60,7 @@ export default function Page() {
                     progress: undefined,
                     theme: "colored",
                 });
-                setDatos({
+                setInfo({
                     Nombre: '',
                     Season: '',
                     Date: '',
