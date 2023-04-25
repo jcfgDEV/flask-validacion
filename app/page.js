@@ -40,7 +40,7 @@ export default function Page() {
 
     const handler = async (e) => {
         e.preventDefault();
-        const res = await fetch('https://validado-python-jcfgdev.vercel.app/add', {
+        const res = await fetch('https://python-validaciones.vercel.app/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

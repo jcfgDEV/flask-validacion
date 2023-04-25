@@ -72,5 +72,5 @@ def Agregar():
     return jsonify({'id': str(_id.inserted_id)}), 200
 
 
-
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
