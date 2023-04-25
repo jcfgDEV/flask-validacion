@@ -1,15 +1,17 @@
 from flask import Flask,request,jsonify
 from pymongo import MongoClient
 from flask_cors import CORS
+from dotenv import load_dotenv
 import datetime
 import os
-
+# Carga las variables de entorno desde el archivo .env
+load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
 
-mongo_uri = os.environ.get('MONGO_URL')
-client = MongoClient(mongo_uri)
+# mongo_uri = os.environ.get('MONGO_URI')
+client = MongoClient('mongodb+srv://ObscureBM:WfhEnDVw90w8FVSU@cluster0.imwio.mongodb.net/?retryWrites=true&w=majority')
 db = client.test
 
 
@@ -24,52 +26,52 @@ def Home():
 
 @app.route('/add', methods=['POST'])
 def Agregar():
-    Dato = request.json['Datos']
+    Data = request.json['Datos']
     errors = {'Nombre': [], 'Season': [], 'Date': [], 'Number': []}
-    existing_name = db.python.find_one({'Nombre': Dato['Nombre']})
+    existing_name = db.python.find_one({'Nombre': Data['Nombre']})
     # FORMATO DE LA FECHA
     date_format = '%Y-%m-%d'
 
     if existing_name:
         errors['Nombre'].append('Ya se encuentra ese nombre')
     
-    if not Dato['Nombre']:
+    if not Data['Nombre']:
         errors['Nombre'].append('Este campo es requerido')
 
-    if not Dato['Season']:
+    if not Data['Season']:
         errors['Season'].append('Este campo es requerido')
 
-    if not Dato['Date']:
+    if not Data['Date']:
        errors['Date'].append('Este campo es requerido')
     else:
         try:
-            datetime.datetime.strptime(Dato['Date'], date_format)
+            datetime.datetime.strptime(Data['Date'], date_format)
         except ValueError:
             errors['Date'].append('Formato de fecha incorrecto, debe ser AAAA-MM-DD')
 
-    if not Dato['Number']:
+    if not Data['Number']:
         errors['Number'].append('Este campo es requerido')
-    elif not Dato['Number'].isdigit():
+    elif not Data['Number'].isdigit():
         errors['Number'].append('Este campo solo debe contener números')
 
-    if len(Dato['Nombre']) > 15:
+    if len(Data['Nombre']) > 15:
         errors['Nombre'].append('El campo Nombre no puede tener más de 15 caracteres')
 
     season_options = ["primavera", "verano", "otoño", "invierno"]
-    if not Dato['Season'] or Dato['Season'].lower() not in season_options:
+    if not Data['Season'] or Data['Season'].lower() not in season_options:
         errors['Season'].append('Debe Ingresar: ' + ', '.join(season_options))
 
     if any(errors.values()):
-        return jsonify({'errors': errors}), 400
+        return jsonify({'errors': errors}),422
 
     _id = db.python.insert_one({
-        'Nombre': Dato['Nombre'], 
-        'Season': Dato['Season'].lower(),  # Convertir a minúsculas
-        'Date': Dato['Date'], 
-        'Number': Dato['Number'],  
+        'Nombre': Data['Nombre'], 
+        'Season': Data['Season'].lower(),  # Convertir a minúsculas
+        'Date': Data['Date'], 
+        'Number': Data['Number'],  
     })
 
-    return jsonify({'id': str(_id.inserted_id)}), 200
+    return jsonify({'id': str(_id.inserted_id)}),200
 
 
 if __name__ == '__main__':

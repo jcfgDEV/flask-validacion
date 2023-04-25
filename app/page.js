@@ -35,7 +35,6 @@ export default function Page() {
         });
     };
 
-    
 
 
     const handler = async (e) => {
@@ -50,27 +49,33 @@ export default function Page() {
             }),
         });
         const response = await res.json();
-        if (res.status == 400) {
-            setErrors(response.errors)
-        } else {
-            toast.success(response.id, {
-                position: "top-left",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            });
-            setDatos({
-                Nombre: '',
-                Season: '',
-                Date: '',
-                Number: '',
-            })
+        try {
+            if (res.status === 200) {
+                toast.success(`Dato Insertados: ${response.id}`, {
+                    position: "top-left",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+                setDatos({
+                    Nombre: '',
+                    Season: '',
+                    Date: '',
+                    Number: '',
+                })
+            } else {
+                setErrors(response.errors)
+            }
+        } catch (err) {
+            //  console.log(err)
         }
     }
+
+
 
 
 
