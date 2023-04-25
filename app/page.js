@@ -98,7 +98,7 @@ export default function Page() {
                             type="text"
                             placeholder="Jose, Telefono, etc..."
                             onChange={Change}
-                            value={Datos.Nombre}
+                            value={Enviar.Nombre}
                         />
                     </div>
                     <div className="mb-1">
@@ -115,7 +115,7 @@ export default function Page() {
                             type="text"
                             placeholder="AAAA-MM-DD"
                             onChange={Change}
-                            value={Datos.Date}
+                            value={Enviar.Date}
                         />
                     </div>
                     <div className="mb-1">
@@ -132,7 +132,7 @@ export default function Page() {
                             type="text"
                             placeholder="1,2,3,4,5,6 etc..."
                             onChange={Change}
-                            value={Datos.Number}
+                            value={Enviar.Number}
                         />
                     </div>
                     <div className="mb-1 relative">
@@ -149,7 +149,7 @@ export default function Page() {
                             type="text"
                             placeholder="Primavera Verano..."
                             onChange={Change}
-                            value={Datos.Season}
+                            value={Enviar.Season}
                         />
                     </div>
                     <div className="flex items-center justify-center p-4">
