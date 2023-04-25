@@ -10,8 +10,8 @@ app = Flask(__name__)
 CORS(app)
 
 
-# mongo_uri = os.environ.get('MONGO_URI')
-client = MongoClient('mongodb+srv://ObscureBM:WfhEnDVw90w8FVSU@cluster0.imwio.mongodb.net/?retryWrites=true&w=majority')
+mongo_uri = os.environ.get('MONGO_URI')
+client = MongoClient(mongo_uri)
 db = client.test
 
 

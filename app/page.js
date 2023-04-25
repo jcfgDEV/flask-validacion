@@ -38,7 +38,7 @@ export default function Page() {
 
     const handler = async (e) => {
         e.preventDefault();
-        const res = await fetch('https://python-validaciones.vercel.app/add', {
+        const res = await fetch('http://localhost:5000/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
