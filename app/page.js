@@ -89,14 +89,14 @@ export default function Page() {
                             <div className=" text-red-600 flex items-center gap-1" key={error}><ImWarning className="text-red-500" />{error}</div>
                         ))}
                         <label className="block text-gray-700 font-bold mb-2" htmlFor="Nombre">
-                            Nombre
+                            Name
                         </label>
                         <input
                             className={`border ${Errors.Nombre.length > 0 ? 'border-red-500' : ''} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none`}
                             id="Nombre"
                             name="Nombre"
                             type="text"
-                            placeholder="Jose, Telefono, etc..."
+                            placeholder="Jose, Andrea etc..."
                             onChange={Change}
                             value={Enviar.Nombre}
                         />
@@ -106,7 +106,7 @@ export default function Page() {
                             <div className="text-red-600 flex items-center gap-1" key={error}><ImWarning className="text-red-500" />{error}</div>
                         ))}
                         <label className="block text-gray-700 font-bold mb-2" htmlFor="fecha">
-                            Fecha
+                            Date
                         </label>
                         <input
                             className={`border ${Errors.Date.length > 0 ? 'border-red-500' : ''} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none`}
@@ -123,7 +123,7 @@ export default function Page() {
                             <div className=" text-red-600 flex items-center gap-1" key={error}><ImWarning className="text-red-500" />{error}</div>
                         ))}
                         <label className="block text-gray-700 font-bold mb-2" htmlFor="numeros">
-                            Numeros
+                            Numbers
                         </label>
                         <input
                             className={`border ${Errors.Number.length > 0 ? 'border-red-500' : ''} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none`}
@@ -140,14 +140,14 @@ export default function Page() {
                             <div className=" text-red-600 flex items-center gap-1" key={error}><ImWarning className="text-red-500" />{error}</div>
                         ))}
                         <label className="block text-gray-700 font-bold mb-2" htmlFor="estaciones">
-                            Estaciones
+                            Seasons
                         </label>
                         <input
                             className={`border ${Errors.Season.length > 0 ? 'border-red-500' : ''} ${Errors.length === 0 ? 'border-green-500' : ''} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none`}
                             id="estaciones"
                             name="Season"
                             type="text"
-                            placeholder="Primavera Verano..."
+                            placeholder="Winter Summer..."
                             onChange={Change}
                             value={Enviar.Season}
                         />
