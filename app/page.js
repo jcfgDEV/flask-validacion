@@ -50,7 +50,7 @@ export default function Page() {
         const response = await res.json();
         try {
             if (res.status === 200) {
-                toast.success(`Dato Insertados: ${response.id}`, {
+                toast.success(`inserted data: ${response.id}`, {
                     position: "top-left",
                     autoClose: 5000,
                     hideProgressBar: false,
